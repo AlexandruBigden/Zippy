@@ -1,200 +1,216 @@
-# Zippy – Autonomous Delivery & Air Quality Drone with AI Assistant
+# **Zippy – Autonomous Delivery and Air Quality Drone with AI Assistant**
 
-Zippy is a smart drone platform designed to **deliver lightweight packages** and **monitor air quality in real time**, while offering users an **AI-powered web interface** for data visualization, control, and support.  
-
-The system integrates environmental sensing, GPS mapping, and remote communication with an **AI chatbot assistant** powered by OpenAI's GPT to guide users with deliveries, alerts, and environmental analysis.
+**Zippy** is an advanced drone platform engineered to **deliver lightweight packages** and **monitor air quality** in real time. It features an AI-powered web interface for data visualization, operational control, and user support. The system integrates environmental sensing, GPS mapping, GSM communication, and an AI chatbot assistant (OpenAI’s GPT) to streamline deliveries, alerts, and environmental analysis.
 
 ---
 
-## 📦 Use Cases
+## **Use Cases**
 
-- Autonomous **delivery of food or small packages**
-- Real-time **air quality mapping** (NO₂, VOCs, humidity, temperature)
-- Smart city monitoring and environmental awareness
-- AI chatbot for live **delivery support** and **air quality insights**
+- **Autonomous delivery** of food or small packages  
+- **Real-time air quality mapping** (NO₂, VOCs, humidity, temperature)  
+- **Smart city environmental monitoring**  
+- **AI chatbot** for delivery status and pollution insights  
 
 ---
 
-## 🧠 Architecture Overview
+## **Architecture Overview**
 
 ZIPPY DRONE SYSTEM
-┌────────────────────────────┐
-│ Drone Hardware │
-│ │
-│ ┌──────────────────────┐ │
-│ │ Arduino UNO │◄─┐
-│ │ - Sensor readings │ │
-│ │ - Controls actuators │ │
-│ └──────────────────────┘ │
-│ │
-│ ┌──────────────────────┐ │
-│ │ SIM800C GSM Module │──┘
-│ │ - Sends data to Web │
-│ └──────────────────────┘
-│ │
-└────────────────────────────┘
+
+┌──────────────────────────────┐
+│         Drone Hardware       │
+│                              │
+│  ┌────────────────────────┐  │
+│  │ Arduino UNO            │◄─┐
+│  │ • Sensor data          │  │
+│  │ • Actuator control     │  │
+│  └────────────────────────┘  │
+│                              │
+│  ┌────────────────────────┐  │
+│  │ SIM800C GSM Module     │──┘
+│  │ • Data transmission    │
+│  └────────────────────────┘  │
+└──────────────────────────────┘
 
 WEB SERVER (Raspberry Pi or VPS)
-┌────────────────────────────┐
-│ Node.js Backend │
-│ - Receives & stores data │
-│ - WebSocket comms │
-│ - REST API │
-├────────────────────────────┤
-│ MySQL / SQLite DB │
-└────────────────────────────┘
+
+┌──────────────────────────────┐
+│ **Node.js Backend**         │
+│ • REST API                  │
+│ • WebSocket communication   │
+│ • Data storage interface    │
+├──────────────────────────────┤
+│ **MySQL** / **SQLite**      │
+└──────────────────────────────┘
 
 CLIENT INTERFACE
-┌────────────────────────────┐
-│ Web Dashboard (Leaflet.js) │
-│ - Live drone map │
-│ - Air quality graphs │
-│ - ChatGPT Assistant (OpenAI)│
-│ │
-│ Mobile App (Flutter) │
-│ - Push alerts │
-└────────────────────────────┘
+
+┌──────────────────────────────┐
+│ **Web Dashboard**           │
+│ (Leaflet.js + Chart.js)     │
+│ • Live drone location        │
+│ • Air quality visualizations │
+│ • AI Chatbot (OpenAI API)    │
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│ **Mobile App**              │
+│ (Flutter)                   │
+│ • Real-time alerts           │
+│ • Delivery tracking          │
+└──────────────────────────────┘
 
 
 ---
 
-## 🧰 Tech Stack
+## **Technology Stack**
 
-### Drone Hardware
-- **Arduino UNO** – reads sensors, controls motors/servos, sends data
-- **SIM800C GSM module** – sends data via TCP/IP or SMS
-- **Sensors**:
-  - MQ-135 (VOCs)
-  - NO₂ electrochemical sensor
-  - DHT22 (temperature + humidity)
-  - NEO-6M GPS
-  - HC-SR04W ultrasonic (obstacle/water level)
-- **Actuators**:
-  - Servos (sensor head rotation, delivery mechanism)
-  - Stepper motor (compartment door)
+### **Drone Hardware**
 
-### Software & Web
-- **Node.js** – backend server (API, WebSocket)
-- **MySQL** – data storage (location, sensors, delivery logs)
-- **Leaflet.js + Chart.js** – interactive map and real-time sensor graphs
-- **Flutter App** – mobile live tracker and alerts
-- **OpenAI API (ChatGPT)** – integrated AI assistant on the website
+- **Arduino UNO** — Sensor acquisition, actuator control, data formatting  
+- **SIM800C GSM module** — GSM/GPRS communication (TCP/IP, SMS)  
+- **Sensors**  
+  - **MQ-135** (volatile organic compounds)  
+  - **NO₂ electrochemical sensor**  
+  - **DHT22** (temperature and humidity)  
+  - **NEO-6M GPS module**  
+  - **HC-SR04W** ultrasonic waterproof obstacle detector  
+- **Actuators**  
+  - Standard **servomotors** (sensor head rotation, delivery mechanism)  
+  - **Stepper motor** with driver (compartment door)  
 
----
+### **Software & Web**
 
-## 💡 Features
-
-✅ Autonomous drone operation  
-✅ Real-time delivery tracking on web  
-✅ Air quality sensor logging and heatmap  
-✅ AI chatbot assistant (via OpenAI GPT)  
-✅ Delivery logging and command center  
-✅ SMS + WebSocket alerts  
-✅ Solar-charged LiFePO₄ battery system  
-✅ Modular and scalable design
+- **Node.js** — Backend server providing REST API and WebSocket services  
+- **Database** — **MySQL** or **SQLite** for telemetry, location, and delivery logs  
+- **Leaflet.js & Chart.js** — Interactive map and real-time sensor graphing  
+- **Flutter** — Cross-platform mobile application for live tracking and notifications  
+- **OpenAI API (ChatGPT)** — Integrated AI assistant on the web interface  
 
 ---
 
-## 🌐 Website Features
+## **Features**
 
-- 📍 **Live Map Interface** with drone position and pollution heatmap (Leaflet.js)
-- 📊 **Charts for NO₂, VOC, Temperature, Humidity**
-- 🤖 **ChatGPT Assistant** – ask for delivery status or pollution reports
-- 📱 **Mobile Friendly** UI + Flutter app for notifications
+- Fully autonomous drone operation  
+- Real-time delivery and sensor tracking via web dashboard  
+- Comprehensive air quality logging and heatmap generation  
+- Integrated AI chatbot assistant for delivery support and environmental queries  
+- Delivery logging, command center, and alerting (SMS, WebSocket)  
+- Solar-assisted power system (LiFePO₄ battery with flexible panel)  
+- Modular and scalable hardware design  
 
 ---
 
-## 🔌 Installation Guide
+## **Website Features**
 
-### 1. Arduino UNO Setup
-- Upload the Arduino sketch (`firmware.ino`) using Arduino IDE
-- Connect the following modules:
-  - DHT22 to digital pin
-  - MQ-135, NO₂ to analog pins
-  - GPS via SoftwareSerial
-  - SIM800C via SoftwareSerial (RX/TX)
-- Configure the sketch to send data over HTTP to your server
+- **Live map** with drone position and pollution heatmap  
+- **Sensor data charts** for NO₂, VOCs, temperature, and humidity  
+- **AI assistant** powered by OpenAI’s ChatGPT for user guidance  
+- **Mobile-friendly** dashboard and push notifications  
 
-### 2. Backend Server Setup (Node.js)
+---
+
+## **Installation Guide**
+
+### **1. Arduino UNO Firmware**
+
+1. Open the **Arduino IDE** (or PlatformIO).  
+2. Load `firmware.ino` from the `arduino/` directory.  
+3. Connect modules as follows:  
+   - **DHT22** → digital input  
+   - **MQ-135**, **NO₂ sensor** → analog inputs  
+   - **NEO-6M GPS** → serial interface (SoftwareSerial)  
+   - **SIM800C** → serial interface (SoftwareSerial)  
+4. Configure the server endpoint in the sketch (HTTP or MQTT).  
+5. Upload the firmware to the Arduino UNO.
+
+### **2. Backend Server (Node.js)**
 
 ```bash
 git clone https://github.com/yourusername/zippy-drone.git
 cd zippy-drone/server
 npm install
-node index.js
 
-    Configure your .env file for:
+Create a .env file with the following variables:
 
-        PORT=3000
+PORT=3000
+MYSQL_HOST=localhost
+MYSQL_USER=your_db_user
+MYSQL_PASSWORD=your_db_password
+MYSQL_DATABASE=zippy
+OPENAI_API_KEY=your_openai_key
 
-        MYSQL_USER, MYSQL_PASSWORD, etc.
-
-3. Database Setup
+Initialize the database schema:
 
 CREATE DATABASE zippy;
--- Use provided schema.sql to create required tables
+-- Run schema.sql to create tables
 
-4. Frontend Setup
+Start the server:
 
-cd ../client
-# Open index.html directly or serve with a local server
+    npm start
 
-Make sure to set your WebSocket & API endpoints correctly in main.js.
-5. Flutter Mobile App
+3. Frontend Dashboard
 
-    Open the /mobile folder in Android Studio or VS Code
+    Navigate to zippy-drone/client/.
 
-    Replace API keys and endpoints
+    Serve the static files via any HTTP server or open index.html in a browser.
 
-    Run on Android/iOS
-    
-    
-🔐 OpenAI ChatGPT Integration
+    Update main.js with your API and WebSocket endpoint URLs.
 
-To enable the chatbot:
+4. Flutter Mobile Application
 
-    Sign up on OpenAI
+    Open the mobile/ directory in Android Studio or VS Code.
 
-    Get your API key
+    Replace API endpoint constants and OpenAI key in the configuration file.
 
-    Set your key in the environment:
+    Run on an Android or iOS device/emulator:
 
-OPENAI_API_KEY=sk-...
+    flutter pub get
+    flutter run
 
-In your Node.js backend, use the key to proxy requests to OpenAI and return answers in the chat UI.
-📂 Folder Structure
+OpenAI ChatGPT Integration
+
+    Sign up at OpenAI and obtain an API key.
+
+    Set OPENAI_API_KEY in your .env file.
+
+    The Node.js backend will proxy requests to OpenAI and serve responses in the web chat interface.
+
+## Project Structure
 
 zippy-drone/
 │
 ├── arduino/           # Arduino UNO firmware (sensors, GSM)
-├── server/            # Node.js + REST API + WebSocket
-├── client/            # Web UI (HTML/CSS/JS + Leaflet/Chart)
-├── mobile/            # Flutter mobile app
-├── docs/              # Diagrams, schematics, docs
+├── server/            # Node.js backend (REST API, WebSocket)
+├── client/            # Web UI (HTML, CSS, JS with Leaflet and Chart.js)
+├── mobile/            # Flutter mobile application
+├── docs/              # Diagrams, schematics, and documentation
+├── LICENSE
 └── README.md
 
-📌 Roadmap
+## Roadmap
 
-Web-based delivery and sensor dashboard
+    Web-based delivery and sensor dashboard
 
-GPS + GSM integration
+    GPS and GSM integration
 
-ChatGPT website assistant
+    AI chatbot integration on website
 
-Add PM2.5 + CO sensors
+    Support for additional sensors (PM2.5, CO)
 
-HTTPS + secure API
+    HTTPS and secure API endpoints
 
-    Edge processing with AI (e.g., anomaly detection)
+    Edge AI processing for anomaly detection
 
-🧑‍💻 Contributors
+## Contributors
 
-    Alexandru Morosanu – Lead Developer & Project Manager
+    Aleksandru Moroșanu — Lead Developer & Project Manager
 
-    Darius Bogdan Andrei – Hardware Integration & Sensors
+    Darius Bogdan Andrei — Hardware Integration & Sensors
 
     Zippy Robotics Team
 
-📜 License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
