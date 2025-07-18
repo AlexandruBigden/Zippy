@@ -46,7 +46,7 @@
 
       <div id="main-chat-widget" class="main-chat-widget">
         <div class="chat-header">
-          <span>🌍 Zippy AI DeliveryBot</span>
+          <span>Zippy AI Assistant</span>
         </div>
         <div id="main-chat-body" class="chat-body"></div>
         <form id="main-chat-form" class="chat-form" autocomplete="off">

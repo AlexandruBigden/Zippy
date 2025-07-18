@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setTimeout(() => {
     appendMessage(
-      'Hi there! I’m Zippy, your AI DeliveryBot. Ask me anything about climate change or deliveries!',
+      'Hi there! I’m Zippy, your AI Assistant. Ask me anything about climate change or deliveries!',
       'bot'
     );
   }, 1000);
