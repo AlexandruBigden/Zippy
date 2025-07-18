@@ -61,12 +61,6 @@
 
 ---
 
-## **Website Showcase**
-![Zippy Web Dashboard](images/openaiv3.png)
-
-## **Phone Application Showcase**
-![Zippy Phone Application](images/aplicatie_35.jpeg)
-
 ## **Installation & Deployment**
 
 ### **1. Arduino UNO Firmware**
@@ -159,27 +153,20 @@
 
 ---
 
-## **Project Structure**
-
-zippy-drone/
-│
-├── arduino/ # Arduino UNO firmware
-├── docs/ # Schematics, SQL schema, documentation
-├── server/ # PHP backend (API, WebSocket)
-├── client/ # Web UI (static files)
-├── mobile/ # Flutter mobile application
-├── LICENSE
-└── README.md
-
-
----
-
 ## **Roadmap**
 
 - Web dashboard enhancements  
 - Additional sensor support (PM2.5, CO)  
 - HTTPS (Let's Encrypt) and secure API endpoints  
 - Edge AI processing for anomaly detection  
+
+---
+
+## **Website Showcase**
+![Zippy Web Dashboard](images/openaiv3.png)
+
+## **Phone Application Showcase**
+![Zippy Phone Application](images/aplicatie_35.jpeg)
 
 ---
 
