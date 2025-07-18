@@ -111,7 +111,7 @@ CLIENT INTERFACE
 
 ---
 
-![Zippy Web Dashboard](images/openai.png)
+![Zippy Web Dashboard](images/openaiv2.png)
 
 ## **Installation & Deployment**
 
