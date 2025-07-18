@@ -7,7 +7,7 @@
 ## **Use Cases**
 
 - **Autonomous delivery** of food or small packages  
-- **Real-time air quality mapping** (NO₂, VOCs, humidity, temperature)  
+- **Real-time air quality mapping** (NO₂, VOCs, temperature, humidity)  
 - **Smart city environmental monitoring**  
 - **AI chatbot** for delivery status and pollution insights  
 
@@ -32,15 +32,15 @@ ZIPPY DRONE SYSTEM
 │  └────────────────────────┘  │
 └──────────────────────────────┘
 
-WEB SERVER (Raspberry Pi or VPS)
+WEB SERVER (Apache2 + PHP)
 
 ┌──────────────────────────────┐
-│ **Node.js Backend**         │
-│ • REST API                  │
-│ • WebSocket communication   │
-│ • Data storage interface    │
+│ PHP Backend                 │
+│ • REST API endpoints        │
+│ • OpenAI ChatGPT proxy      │
+│ • WebSocket (Ratchet/PHP)   │
 ├──────────────────────────────┤
-│ **MySQL** / **SQLite**      │
+│ MySQL Database (separate)   │
 └──────────────────────────────┘
 
 CLIENT INTERFACE
@@ -81,8 +81,9 @@ CLIENT INTERFACE
 
 ### **Software & Web**
 
-- **Node.js** — Backend server providing REST API and WebSocket services  
-- **Database** — **MySQL** or **SQLite** for telemetry, location, and delivery logs  
+- **Apache2** — HTTP server hosting PHP application  
+- **PHP 7.4+** — Backend logic, OpenAI proxy, WebSocket support via Ratchet or similar  
+- **MySQL** — Separate database server for telemetry, location, delivery logs  
 - **Leaflet.js & Chart.js** — Interactive map and real-time sensor graphing  
 - **Flutter** — Cross-platform mobile application for live tracking and notifications  
 - **OpenAI API (ChatGPT)** — Integrated AI assistant on the web interface  
@@ -110,107 +111,131 @@ CLIENT INTERFACE
 
 ---
 
-## **Installation Guide**
+## **Installation & Deployment**
 
 ### **1. Arduino UNO Firmware**
 
-1. Open the **Arduino IDE** (or PlatformIO).  
+1. Open **Arduino IDE** (or PlatformIO).  
 2. Load `firmware.ino` from the `arduino/` directory.  
-3. Connect modules as follows:  
+3. Wire modules:  
    - **DHT22** → digital input  
    - **MQ-135**, **NO₂ sensor** → analog inputs  
    - **NEO-6M GPS** → serial interface (SoftwareSerial)  
    - **SIM800C** → serial interface (SoftwareSerial)  
-4. Configure the server endpoint in the sketch (HTTP or MQTT).  
-5. Upload the firmware to the Arduino UNO.
+4. Set the server API endpoint in the sketch (HTTP POST).  
+5. Upload firmware to the Arduino UNO.
 
-### **2. Backend Server (Node.js)**
+### **2. MySQL Database Server**
 
-```bash
-git clone https://github.com/yourusername/zippy-drone.git
-cd zippy-drone/server
-npm install
+1. Install MySQL on a dedicated host or container.  
+2. Create database and user:
 
-Create a .env file with the following variables:
+    ```sql
+    CREATE DATABASE zippy;
+    CREATE USER 'zippy_user'@'%' IDENTIFIED BY 'strong_password';
+    GRANT ALL PRIVILEGES ON zippy.* TO 'zippy_user'@'%';
+    FLUSH PRIVILEGES;
+    ```
+3. Import schema:
 
-PORT=3000
-MYSQL_HOST=localhost
-MYSQL_USER=your_db_user
-MYSQL_PASSWORD=your_db_password
-MYSQL_DATABASE=zippy
-OPENAI_API_KEY=your_openai_key
+    ```bash
+    mysql -u zippy_user -p zippy < docs/schema.sql
+    ```
 
-Initialize the database schema:
+### **3. Apache2 + PHP Backend**
 
-CREATE DATABASE zippy;
--- Run schema.sql to create tables
+1. Install Apache2, PHP, and required extensions (cURL, PDO_MySQL, JSON, WebSocket library).  
+2. Configure virtual host:
 
-Start the server:
+    ```apache
+    <VirtualHost *:80>
+      ServerName zippy.example.com
+      DocumentRoot /var/www/zippy
+      <Directory /var/www/zippy>
+        AllowOverride All
+        Require all granted
+      </Directory>
+      ErrorLog ${APACHE_LOG_DIR}/zippy_error.log
+      CustomLog ${APACHE_LOG_DIR}/zippy_access.log combined
+    </VirtualHost>
+    ```
+3. Enable and restart:
 
-    npm start
+    ```bash
+    a2enmod rewrite proxy_fcgi setenvif
+    systemctl restart apache2
+    ```
+4. Deploy PHP files into `/var/www/zippy`, configure `config.php` with:
+    ```php
+    <?php
+    return [
+      'db_host'     => 'your_mysql_host',
+      'db_name'     => 'zippy',
+      'db_user'     => 'zippy_user',
+      'db_pass'     => 'strong_password',
+      'openai_key'  => 'sk-...',
+    ];
+    ```
 
-3. Frontend Dashboard
+### **4. Client Dashboard**
 
-    Navigate to zippy-drone/client/.
+1. Copy `client/` into `/var/www/zippy/client/`.  
+2. Edit `client/main.js` to point to your backend API and WebSocket endpoints.
 
-    Serve the static files via any HTTP server or open index.html in a browser.
+### **5. Flutter Mobile Application**
 
-    Update main.js with your API and WebSocket endpoint URLs.
+1. Open the `mobile/` folder in Android Studio or VS Code.  
+2. Set API endpoint and OpenAI key in `lib/config.dart`.  
+3. Install dependencies and run:
 
-4. Flutter Mobile Application
-
-    Open the mobile/ directory in Android Studio or VS Code.
-
-    Replace API endpoint constants and OpenAI key in the configuration file.
-
-    Run on an Android or iOS device/emulator:
-
+    ```bash
     flutter pub get
     flutter run
+    ```
 
-OpenAI ChatGPT Integration
+---
 
-    Sign up at OpenAI and obtain an API key.
+## **OpenAI ChatGPT Integration**
 
-    Set OPENAI_API_KEY in your .env file.
+1. Sign up at [OpenAI](https://platform.openai.com/) and generate an API key.  
+2. Store your key in `config.php` and/or `.env` if used.  
+3. The PHP backend will forward chat requests to OpenAI and return responses.
 
-    The Node.js backend will proxy requests to OpenAI and serve responses in the web chat interface.
+---
 
-## Project Structure
+## **Project Structure**
 
 zippy-drone/
 │
-├── arduino/           # Arduino UNO firmware (sensors, GSM)
-├── server/            # Node.js backend (REST API, WebSocket)
-├── client/            # Web UI (HTML, CSS, JS with Leaflet and Chart.js)
-├── mobile/            # Flutter mobile application
-├── docs/              # Diagrams, schematics, and documentation
+├── arduino/ # Arduino UNO firmware
+├── docs/ # Schematics, SQL schema, documentation
+├── server/ # PHP backend (API, WebSocket)
+├── client/ # Web UI (static files)
+├── mobile/ # Flutter mobile application
 ├── LICENSE
 └── README.md
 
-## Roadmap
 
-    Web-based delivery and sensor dashboard
+---
 
-    GPS and GSM integration
+## **Roadmap**
 
-    AI chatbot integration on website
+- Web dashboard enhancements  
+- Additional sensor support (PM2.5, CO)  
+- HTTPS (Let's Encrypt) and secure API endpoints  
+- Edge AI processing for anomaly detection  
 
-    Support for additional sensors (PM2.5, CO)
+---
 
-    HTTPS and secure API endpoints
+## **Contributors**
 
-    Edge AI processing for anomaly detection
+- **Aleksandru Moroșanu** — Lead Developer & Project Manager  
+- **Darius Bogdan Andrei** — Hardware Integration & Sensors  
+- **Zippy Robotics Team**
 
-## Contributors
+---
 
-    Aleksandru Moroșanu — Lead Developer & Project Manager
+## **License**
 
-    Darius Bogdan Andrei — Hardware Integration & Sensors
-
-    Zippy Robotics Team
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.  
 
