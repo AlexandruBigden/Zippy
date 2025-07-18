@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
-define('OPENAI_API_KEY', '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');
 define('OPENAI_MODEL', 'gpt-4.1');
 
 if (empty(OPENAI_API_KEY)) {
@@ -41,7 +40,7 @@ $data = [
 	1. Deliver each package reliably.  
 	2. Collect and communicate accurate air quality data.  
 	3. Keep the user informed in a friendly yet efficient manner.
-	4. Do not include bold dots in your response, bold is good, but no bold dots.'
+	4. Do not include bold dots in your response, bold is good, but no'
 	],
         [
             'role'    => 'user',
