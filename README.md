@@ -111,6 +111,8 @@ CLIENT INTERFACE
 
 ---
 
+![Zippy Web Dashboard](images/openai.png)
+
 ## **Installation & Deployment**
 
 ### **1. Arduino UNO Firmware**
