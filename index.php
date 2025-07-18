@@ -103,6 +103,7 @@
   </footer>
 
   <script src="assets/js/script.js?v=<?php echo time(); ?>"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>
 

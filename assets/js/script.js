@@ -14,14 +14,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatInput = document.getElementById('main-chat-input');
   let hasExpanded = false;
 
-  const appendMessage = (text, type) => {
-    if (!chatBody) return;
-    const bubble = document.createElement('div');
-    bubble.classList.add('message', type);
-    bubble.textContent = text;
-    chatBody.appendChild(bubble);
-    chatBody.scrollTop = chatBody.scrollHeight;
-  };
+const appendMessage = (text, type) => {
+  if (!chatBody) return;
+  const bubble = document.createElement('div');
+  bubble.classList.add('message', type);
+  bubble.innerHTML = marked.parse(text);
+  bubble.style.textAlign = type === 'bot' ? 'left' : 'right';
+
+  if (type === 'bot') {
+    bubble.querySelectorAll('p').forEach(p => {
+      if (p.textContent.trim().startsWith('•')) {
+        p.style.marginLeft = '5px';
+      }
+    });
+  }
+
+  chatBody.appendChild(bubble);
+  chatBody.scrollTop = chatBody.scrollHeight;
+};
+
+
 
   setTimeout(() => {
     appendMessage(
@@ -63,4 +75,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-

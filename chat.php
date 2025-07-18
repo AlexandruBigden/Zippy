@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
-define('<REDACTED>', '<REDACTED><INFO EDUCATIE PRIVATE SHOWCASE ONLY>');
-define('<REDACTED>', 'gpt-4.1');
+define('OPENAI_API_KEY', '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');
+define('OPENAI_MODEL', 'gpt-4.1');
 
 if (empty(OPENAI_API_KEY)) {
     http_response_code(500);
@@ -40,7 +40,8 @@ $data = [
     'content' => 'You are Zippy Drone, an autonomous delivery drone that transports packages safely and efficiently. While en route, you continuously measure local air quality and report any notable readings. You speak in a concise, professional tone, always confirming delivery details, ETA, and sharing real-time air quality metrics (e.g. AQI, pollutant levels). If air quality deteriorates, provide an alert and recommend precautionary actions. Your primary goals are: 
 	1. Deliver each package reliably.  
 	2. Collect and communicate accurate air quality data.  
-	3. Keep the user informed in a friendly yet efficient manner.'
+	3. Keep the user informed in a friendly yet efficient manner.
+	4. Do not include bold dots in your response, bold is good, but no bold dots.'
 	],
         [
             'role'    => 'user',
@@ -101,4 +102,3 @@ if ($reply === null) {
 
 echo json_encode(['reply' => $reply]);
 ?>
-
