@@ -13,56 +13,6 @@
 
 ---
 
-## **Architecture Overview**
-
-ZIPPY DRONE SYSTEM
-
-┌──────────────────────────────┐
-│         Drone Hardware       │
-│                              │
-│  ┌────────────────────────┐  │
-│  │ Arduino UNO            │◄─┐
-│  │ • Sensor data          │  │
-│  │ • Actuator control     │  │
-│  └────────────────────────┘  │
-│                              │
-│  ┌────────────────────────┐  │
-│  │ SIM800C GSM Module     │──┘
-│  │ • Data transmission    │
-│  └────────────────────────┘  │
-└──────────────────────────────┘
-
-WEB SERVER (Apache2 + PHP)
-
-┌──────────────────────────────┐
-│ PHP Backend                 │
-│ • REST API endpoints        │
-│ • OpenAI ChatGPT proxy      │
-│ • WebSocket (Ratchet/PHP)   │
-├──────────────────────────────┤
-│ MySQL Database (separate)   │
-└──────────────────────────────┘
-
-CLIENT INTERFACE
-
-┌──────────────────────────────┐
-│ **Web Dashboard**           │
-│ (Leaflet.js + Chart.js)     │
-│ • Live drone location        │
-│ • Air quality visualizations │
-│ • AI Chatbot (OpenAI API)    │
-└──────────────────────────────┘
-
-┌──────────────────────────────┐
-│ **Mobile App**              │
-│ (Flutter)                   │
-│ • Real-time alerts           │
-│ • Delivery tracking          │
-└──────────────────────────────┘
-
-
----
-
 ## **Technology Stack**
 
 ### **Drone Hardware**
