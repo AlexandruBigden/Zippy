@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
-define('OPENAI_API_KEY', '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');
-define('OPENAI_MODEL', 'gpt-4.1');
+define('<REDACTED>', '<REDACTED><INFO EDUCATIE PRIVATE SHOWCASE ONLY>');
+define('<REDACTED>', 'gpt-4.1');
 
 if (empty(OPENAI_API_KEY)) {
     http_response_code(500);
