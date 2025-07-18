@@ -1,4 +1,4 @@
-# 🛩️ Zippy – Autonomous Delivery & Air Quality Drone with AI Assistant 🌍🤖
+# Zippy – Autonomous Delivery & Air Quality Drone with AI Assistant
 
 Zippy is a smart drone platform designed to **deliver lightweight packages** and **monitor air quality in real time**, while offering users an **AI-powered web interface** for data visualization, control, and support.  
 
