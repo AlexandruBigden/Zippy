@@ -111,7 +111,7 @@ CLIENT INTERFACE
 
 ---
 
-![Zippy Web Dashboard](images/openaiv2.png)
+![Zippy Web Dashboard](images/openaiv3.png)
 
 ## **Installation & Deployment**
 
