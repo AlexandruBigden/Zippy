@@ -1,0 +1,46 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # If the requested file or directory exists, don't rewrite
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Route /register to register.php
+    RewriteRule ^register/?$ register.php [L,QSA]
+
+    # Route /login to login.php
+    RewriteRule ^login/?$ login.php [L,QSA]
+    
+    RewriteRule ^training/?$ training.php [L,QSA]
+    
+    RewriteRule ^profile/?$ profile.php [L,QSA]
+    
+    RewriteRule ^upload/?$ upload.php [L,QSA]
+    
+    RewriteRule ^model/?$ ml_model.php [L,QSA]
+    
+    RewriteRule ^model/overview?$ overview.php [L,QSA]
+    
+    RewriteRule ^model/prerequisites?$ prerequisites.php [L,QSA]
+    RewriteRule ^model/resources?$ resources.php [L,QSA]
+    RewriteRule ^model/pythonml?$ pythonml.php [L,QSA]
+    RewriteRule ^model/android_studio?$ android_studio.php [L,QSA]
+    RewriteRule ^model/robot_control?$ robot_control.php [L,QSA]
+    RewriteRule ^logout/?$ logout.php [L,QSA]
+    
+    RewriteRule ^model/training?$ traningdata.php [L,QSA]
+    RewriteRule ^model/training_structure?$ trainings.php [L,QSA]
+    RewriteRule ^model/training_ml?$ pythontraining.php [L,QSA]
+    RewriteRule ^model/label_tool?$ label_tool.php [L,QSA]
+    RewriteRule ^model/cameracalib?$ cameracalib.php [L,QSA]
+    RewriteRule ^model/future_project?$ future_project.php [L,QSA]
+    RewriteRule ^model/sample_2d_math?$ sample_math.php [L,QSA]
+    RewriteRule ^model/sample_3d_math?$ sample_3d_math.php [L,QSA]
+
+    RewriteRule ^air-quality?$ air-quality.php [L,QSA]
+
+    # Optionally, route the root URL to index.php
+    RewriteRule ^$ index.php [L,QSA]
+</IfModule>
+
