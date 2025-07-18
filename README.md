@@ -18,7 +18,9 @@
 ZIPPY DRONE SYSTEM
 
 ┌──────────────────────────────┐
+
 │         Drone Hardware       │
+
 │                              │
 │  ┌────────────────────────┐  │
 │  │ Arduino UNO            │◄─┐
