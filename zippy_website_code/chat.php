@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
+define('OPENAI_API_KEY', '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');
 define('OPENAI_MODEL', 'gpt-4.1');
 
 if (empty(OPENAI_API_KEY)) {
