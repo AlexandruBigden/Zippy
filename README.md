@@ -18,9 +18,7 @@
 ZIPPY DRONE SYSTEM
 
 ┌──────────────────────────────┐
-
 │         Drone Hardware       │
-
 │                              │
 │  ┌────────────────────────┐  │
 │  │ Arduino UNO            │◄─┐
@@ -231,7 +229,7 @@ zippy-drone/
 
 ## **Contributors**
 
-- **Aleksandru Moroșanu** — Lead Developer & Project Manager  
+- **Alexandru Moroșanu** — Lead Developer & Project Manager  
 - **Darius Bogdan Andrei** — Hardware Integration & Sensors  
 - **Zippy Robotics Team**
 
