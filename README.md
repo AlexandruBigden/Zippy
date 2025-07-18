@@ -115,7 +115,7 @@ CLIENT INTERFACE
 ![Zippy Web Dashboard](images/openaiv3.png)
 
 ## **Phone Application Showcase**
-![Zippy Phone Application](images/aplicatie.jpeg)
+![Zippy Phone Application](images/aplicatie_35.jpeg)
 
 ## **Installation & Deployment**
 
